@@ -1,0 +1,78 @@
+/**
+ * 16-bit multiplexor: 
+ * for i = 0, ..., 15:
+ * if (sel = 0) out[i] = a[i], else out[i] = b[i]
+ */
+CHIP Mux16 {
+    IN a[16], b[16], sel;
+    OUT out[16];
+
+    PARTS:
+    Not(in=sel, out=notsel);
+    
+    Nand(a=a[0], b=notsel, out=t01);
+    Nand(a=sel, b=b[0], out=t02);
+    Nand(a=t01, b=t02, out=out[0]);
+
+    Nand(a=a[1], b=notsel, out=t11);
+    Nand(a=sel, b=b[1], out=t12);
+    Nand(a=t11, b=t12, out=out[1]);
+
+    Nand(a=a[2], b=notsel, out=t21);
+    Nand(a=sel, b=b[2], out=t22);
+    Nand(a=t21, b=t22, out=out[2]);
+
+    Nand(a=a[3], b=notsel, out=t31);
+    Nand(a=sel, b=b[3], out=t32);
+    Nand(a=t31, b=t32, out=out[3]);
+
+    Nand(a=a[4], b=notsel, out=t41);
+    Nand(a=sel, b=b[4], out=t42);
+    Nand(a=t41, b=t42, out=out[4]);
+
+    Nand(a=a[5], b=notsel, out=t51);
+    Nand(a=sel, b=b[5], out=t52);
+    Nand(a=t51, b=t52, out=out[5]);
+
+    Nand(a=a[6], b=notsel, out=t61);
+    Nand(a=sel, b=b[6], out=t62);
+    Nand(a=t61, b=t62, out=out[6]);
+
+    Nand(a=a[7], b=notsel, out=t71);
+    Nand(a=sel, b=b[7], out=t72);
+    Nand(a=t71, b=t72, out=out[7]);
+
+    Nand(a=a[8], b=notsel, out=t81);
+    Nand(a=sel, b=b[8], out=t82);
+    Nand(a=t81, b=t82, out=out[8]);
+
+    Nand(a=a[9], b=notsel, out=t91);
+    Nand(a=sel, b=b[9], out=t92);
+    Nand(a=t91, b=t92, out=out[9]);
+
+    Nand(a=a[10], b=notsel, out=t101);
+    Nand(a=sel, b=b[10], out=t102);
+    Nand(a=t101, b=t102, out=out[10]);
+
+    Nand(a=a[11], b=notsel, out=t111);
+    Nand(a=sel, b=b[11], out=t112);
+    Nand(a=t111, b=t112, out=out[11]);
+
+    Nand(a=a[12], b=notsel, out=t121);
+    Nand(a=sel, b=b[12], out=t122);
+    Nand(a=t121, b=t122, out=out[12]);
+
+    Nand(a=a[13], b=notsel, out=t131);
+    Nand(a=sel, b=b[13], out=t132);
+    Nand(a=t131, b=t132, out=out[13]);
+
+    Nand(a=a[14], b=notsel, out=t141);
+    Nand(a=sel, b=b[14], out=t142);
+    Nand(a=t141, b=t142, out=out[14]);
+
+    Nand(a=a[15], b=notsel, out=t151);
+    Nand(a=sel, b=b[15], out=t152);
+    Nand(a=t151, b=t152, out=out[15]);
+    
+
+}
