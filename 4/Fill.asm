@@ -3,83 +3,58 @@
 // i.e. writes "black" in every pixel. When no key is pressed, 
 // the screen should be cleared.
 
-(LISTENFORPRESS)
+(LISTEN)
+//reset loop registers
+@SCREEN
+D=A
+@addr //pointer to address
+M=D
+@i
+M=0
+
 @KBD //get keyboard address
 D=M
 @KEYPRESSED
 D;JNE //key is pressed
-@LISTENFORPRESS
-0;JMP
-
-(LISTENFOREMPTY)
-@KBD //get keyboard address
-D=M
-@KEYRELEASED
-D;JEQ //key is pressed
-@LISTENFOREMPTY
+@KEYNOTPRESSED
 0;JMP
 
 (KEYPRESSED)
-//prepare loop
-@SCREEN
-D=A
-@addr //pointer to address
-M=D
-@i
-M=0
+@color
+M=-1   //black
+@SETSCREEN
+0;JMP
 
-(SETSCREENBLACK)
+(KEYNOTPRESSED)
+@color
+M=0   //white
+@SETSCREEN
+0;JMP
+
+(SETSCREEN)
 //check finished
 @8192
 D=A
 @i
 D=D-M
-@LISTENFOREMPTY
+@LISTEN
 D;JEQ
 
 //next spot in memory
 @i
 D=M
-@addr
-A=D+M
-M=-1
-
-//i++
-@i
-M=M+1
-@SETSCREENBLACK
-0;JMP
-
-(KEYRELEASED)
-//prepare loop
 @SCREEN
-D=A
-@addr //pointer to address
+D=D+A
+@addr //increment @addr value
 M=D
-@i
-M=0
-
-(SETSCREENWHITE)
-//check finished
-@8192
-D=A
-@i
-D=D-M
-@LISTENFORPRESS
-D;JEQ
-
-//next spot in memory
-@i
+@color
 D=M
 @addr
-A=D+M
-M=0
+A=M  //point to next address
+M=D  //fill with correct color
 
 //i++
 @i
 M=M+1
-@SETSCREENWHITE
+@SETSCREEN
 0;JMP
-
-
-
